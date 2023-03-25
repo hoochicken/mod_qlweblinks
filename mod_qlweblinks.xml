@@ -41,9 +41,94 @@
 	<config>
 		<fields name="params" addfieldpath="/modules/mod_qlweblinks/php/fields" addrulepath="/modules/mod_qlweblinks/php/rules">
             <fieldset name="basic">
-
+				<field name="type" type="list">
+					<option value=""> - plz choose - </option>
+					<option value="single">single</option>
+					<option value="all">all</option>
+					<option value="by_category">by_category</option>
+					<option value="category">category</option>
+					<option value="category_and_its_weblinks">category_and_its_weblinks</option>
+					<option value="categories">categories</option>
+					<option value="categories_and_their_weblinks">categories_and_their_weblinks</option>
+				</field>
             </fieldset>
+			<fieldset name="weblink">
+				<field name="weblink_display" type="list">
+					<option value="list">list</option>
+					<option value="table">table</option>
+					<option value="grid">grid</option>
+				</field>
+				<field name="weblink_order_by" type="list">
+					<option value="title">title</option>
+					<option value="created_at">created_at</option>
+					<option value="id">id</option>
+				</field>
+				<field name="weblink_order_dir" type="list">
+					<option value="asc">asc</option>
+					<option value="desc">desc</option>
+				</field>
+				<field name="weblink_display" type="radio" class="btn-group">
+					<option value="title (id)">id</option>
+					<option value="title (id) url">title</option>
+					<option value="url">description</option>
+					<option value="title (id), cat_title (cat_id)">title (id), cat_title (cat_id)</option>
+					<option value="title (id), cat_title (cat_id) | Hits: hits">title (id), cat_title (cat_id) | Hits: hits</option>
+					<option value="image">image</option>
+					<option value="image title">image title</option>
+					<option value="image title (id)">image title (id)</option>
+				</field>
+				<field name="weblink_link_title" type="list" class="btn-group btn-group-yesno">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				<field name="weblink_link_url" type="list" class="btn-group btn-group-yesno">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				<field name="weblink_link_image" type="list" class="btn-group btn-group-yesno">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+			</fieldset>
+			<fieldset name="category">
+				<field name="wcategory_display" type="list">
+					<option value="list">list</option>
+					<option value="table">table</option>
+					<option value="grid">grid</option>
+				</field>
+				<field name="wcategory_order_by" type="list">
+					<option value="title">title</option>
+					<option value="created_at">created_at</option>
+					<option value="id">id</option>
+				</field>
+				<field name="wcategory_order_dir" type="list">
+					<option value="asc">asc</option>
+					<option value="desc">desc</option>
+				</field>
+				<field name="wcategory_display" type="radio" class="btn-group">
+					<option value="title (id)">id</option>
+					<option value="title (id) url">title</option>
+					<option value="url">description</option>
+					<option value="title (id), cat_title (cat_id)">title (id), cat_title (cat_id)</option>
+					<option value="title (id), cat_title (cat_id) | Hits: hits">title (id), cat_title (cat_id) | Hits: hits</option>
+					<option value="image">image</option>
+					<option value="image title">image title</option>
+					<option value="image title (id)">image title (id)</option>
+				</field>
+				<field name="wcategory_link_title" type="list" class="btn-group btn-group-yesno">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				<field name="wcategory_link_url" type="list" class="btn-group btn-group-yesno">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				<field name="wcategory_link_image" type="list" class="btn-group btn-group-yesno">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
 
+			</fieldset>
 			<fieldset
 				name="advanced">
 				<field

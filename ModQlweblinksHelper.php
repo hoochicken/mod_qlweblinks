@@ -45,9 +45,7 @@ class ModQlweblinksHelper
     {
         $Queries = new php\classes\ModQlweblinksDbQueries($this->module, $this->params, $this->db);
         $categories = $Queries->getCategories();
-        $catids = array_column($categories, 'id');
-        $weblinks = $Queries->getWeblinksByCategoryIds($catids);
-        return $Queries->getCategories();
+        return self::enrichCategoriesWithWeblinks($categories, $Queries->getWeblinksByCategoryIds(array_column($categories, 'id')));
     }
 
     public function renderAll(array $items): array
@@ -57,5 +55,28 @@ class ModQlweblinksHelper
             $items[$k]['content'] = ModQlweblinksRender::render($this->params->get('weblink_template', 'title'), $item);
         }
         return $items;
+    }
+
+    public static function enrichCategoriesWithWeblinks($categories, $weblinks): array
+    {
+        $weblinks = self::chunkArrayByAttribute($weblinks, 'catid');
+        foreach ($categories as $k => $category) {
+            $catid = $category['id'];
+            $categories[$k]['weblinks'] = $weblinks[$catid] ?? [];
+        }
+        return $categories;
+    }
+
+    static private function chunkArrayByAttribute(array $data, string $attribute): array
+    {
+        $return = [];
+        foreach ($data as $item) {
+            $attributeValue = $item[$attribute] ?? 0;
+            if (!isset($return[$attributeValue])) {
+                $return[$attributeValue] = [];
+            }
+            $return[$attributeValue][] = $item;
+        }
+        return $return;
     }
 }

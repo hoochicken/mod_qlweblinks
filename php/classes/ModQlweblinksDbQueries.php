@@ -45,8 +45,7 @@ class ModQlweblinksDbQueries
         $query = $this->getQueryWeblinks();
         $query->where(sprintf('catid IN(%s)', implode(',', $catids)));
         $this->db->setQuery($query);
-        $weblinks = $this->db->loadAssocList();
-        return self::chunkArrayByAttribute($weblinks, 'catid');
+        return $this->db->loadAssocList();
     }
 
     public function getCategories(): array
@@ -92,18 +91,5 @@ class ModQlweblinksDbQueries
     {
         array_walk($integers, function(&$item) { return (int)$item; });
         return array_filter(array_unique($integers));
-    }
-
-    static private function chunkArrayByAttribute(array $data, string $attribute): array
-    {
-        $return = [];
-        foreach ($data as $item) {
-            $attributeValue = $item[$attribute] ?? 0;
-            if (!isset($return[$attributeValue])) {
-                $return[$attributeValue] = [];
-            }
-            $return[$attributeValue][] = $item;
-        }
-        return $return;
     }
 }

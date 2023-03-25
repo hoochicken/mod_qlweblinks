@@ -32,8 +32,12 @@ class ModQlweblinksRender
     {
         $template = self::setPlaceholdersInTemplate($template, self::ATTRIBUTES);
         $data = self::getDataArrayWithPlaceholdersAsKey($data);
+        $data = array_filter($data, function($item) {return is_string($item) || is_numeric($item); });
         if ($setSpans) {
             array_walk($data, function (&$item, $placeholder) {
+                if (!is_string($item)) {
+                    return $item;
+                }
                 $item = ModQlweblinksRender::generateSpan($item, $placeholder);
             });
         }

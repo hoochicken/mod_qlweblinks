@@ -48,16 +48,16 @@
 					<option value="by_category">by_category</option>
 					<option value="category">category</option>
 					<option value="category_and_its_weblinks">category_and_its_weblinks</option>
-					<option value="categories">categories</option>
+					<option value="categories_all">categories</option>
 					<option value="categories_and_their_weblinks">categories_and_their_weblinks</option>
 				</field>
-            </fieldset>
-			<fieldset name="weblink">
-				<field name="weblink_display" type="list">
+				<field name="display" type="list">
 					<option value="list">list</option>
 					<option value="table">table</option>
 					<option value="grid">grid</option>
 				</field>
+			</fieldset>
+			<fieldset name="weblink">
 				<field name="weblink_order_by" type="list">
 					<option value="title">title</option>
 					<option value="created_at">created_at</option>

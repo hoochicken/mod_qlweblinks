@@ -34,46 +34,13 @@ class ModQlweblinksHelper
 
     public function getWeblinksAll()
     {
-        $query = $this->getQueryWeblinks();
-        $this->db->setQuery($query);
-        return $this->db->loadObjectList();
+        $Queries = new php\classes\ModQlweblinksDbQueries\ModQlweblinksDbQueries($this->module, $this->params, $this->db);
+        return $Queries->getWeblinksAll();
     }
 
     public function getCategories()
     {
-        $query = $this->getQueryCategories();
-        $this->db->setQuery($query);
-        return $this->db->loadObjectList();
-    }
-
-    private function getQueryWeblinks(): DatabaseQuery
-    {
-        $query = $this->getQuery();
-        $query->select('*')->from(self::TABLE_WEBLINKS)->where('`state` = 1');
-        $where = '
-            ( 
-                (`publish_up` IS NULL AND `publish_down` IS NULL)
-                OR
-                (`publish_up` <= NOW() AND `publish_down` IS NULL)
-                OR
-                (`publish_up` IS NULL AND `publish_down` >= NOW())
-                OR
-                (`publish_up`<= NOW() AND `publish_down` >= NOW())
-            )';
-        $query->where($where);
-        return $query;
-    }
-
-    private function getQueryCategories(): DatabaseQuery
-    {
-        $query = $this->getQuery();
-        $query->select('*')->from(self::TABLE_CATEGORIES)->where('`published` = 1');
-        $where = '`extension` = "com_weblinks"';
-        return $query->where($where);
-    }
-
-    private function getQuery(): DatabaseQuery
-    {
-        return $this->db->getQuery(true);
+        $Queries = new php\classes\ModQlweblinksDbQueries\ModQlweblinksDbQueries($this->module, $this->params, $this->db);
+        return $Queries->getCategories();
     }
 }

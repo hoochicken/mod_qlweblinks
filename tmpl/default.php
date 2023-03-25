@@ -16,11 +16,6 @@ $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
 $wa->registerStyle('qlweblinks', 'mod_qlweblinks/styles.css');
 $wa->useStyle('qlweblinks');
 ?>
-
 <div class="qlweblinks" id="module<?php echo $module->id ?>">
-    <h1>QL Weblinks</h1>
-    <?php
-    foreach ($weblinks as $k => $weblink): ?>
-        <?php print_r($weblink); ?>
-    <?php endforeach; ?>
+    <?php include __DIR__ . '/weblinks_list.php'; ?>
 </div>

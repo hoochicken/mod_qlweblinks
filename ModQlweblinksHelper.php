@@ -4,6 +4,7 @@ namespace ModQlweblinks;
 
 use Joomla\Database\DatabaseDriver;
 use Joomla\Database\DatabaseQuery;
+use ModQlweblinks\php\classes\ModQlweblinksDbQueries\ModQlweblinksRender;
 
 /**
  * @package        mod_qlqlweblinks
@@ -17,10 +18,6 @@ defined('_JEXEC') or die;
 
 class ModQlweblinksHelper
 {
-    const TABLE_WEBLINKS = '#__weblinks';
-    const TABLE_CATEGORIES = '#__categories';
-    const NO_DATE = '0000-00-00 00:00:00';
-
     public \stdClass $module;
     public \JRegistry $params;
     public DatabaseDriver $db;
@@ -40,7 +37,16 @@ class ModQlweblinksHelper
 
     public function getCategories()
     {
-        $Queries = new php\classes\ModQlweblinksDbQueries\ModQlweblinksDbQueries($this->module, $this->params, $this->db);
+        $Queries = new php\classes\ModQlweblinksDbQueries($this->module, $this->params, $this->db);
         return $Queries->getCategories();
+    }
+
+    public function renderAll(array $items): array
+    {
+        foreach ($items as $k => $item) {
+            $items[$k]['content_with_span'] = ModQlweblinksRender::render($this->params->get('weblink_template', 'title'), $item, true);
+            $items[$k]['content'] = ModQlweblinksRender::render($this->params->get('weblink_template', 'title'), $item);
+        }
+        return $items;
     }
 }

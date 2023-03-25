@@ -13,6 +13,7 @@ use Joomla\CMS\Factory;
 
 defined('_JEXEC') or die;
 require_once dirname(__FILE__).'/php/classes/ModQlweblinksDbQueries.php';
+require_once dirname(__FILE__).'/php/classes/ModQlweblinksRender.php';
 require_once dirname(__FILE__).'/ModQlweblinksHelper.php';
 
 /** @var $module  */
@@ -22,4 +23,6 @@ $items = match ($params->get('type')) {
     'categories_all' => $qlweblinksHelper->getCategories(),
     default => $qlweblinksHelper->getWeblinksAll(),
 };
+
+$items = $qlweblinksHelper->renderAll($items);
 require JModuleHelper::getLayoutPath('mod_qlweblinks', $params->get('layout', 'default'));

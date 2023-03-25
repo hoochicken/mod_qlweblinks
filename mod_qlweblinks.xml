@@ -67,18 +67,19 @@
 					<option value="asc">asc</option>
 					<option value="desc">desc</option>
 				</field>
-				<field name="weblink_display" type="radio" class="btn-group">
+				<field name="weblink_template" type="list">
 					<option value="title">title</option>
 					<option value="title (id)">title (id)</option>
 					<option value="title (id) url">title (id) url</option>
-					<option value="title (id) description">description</option>
-					<option value="title (id), cat_title (cat_id)">title (id), cat_title (cat_id)</option>
-					<option value="title (id), cat_title (cat_id) - Hits: hits">title (id), cat_title (cat_id) - Hits: hits</option>
+					<option value="title (id) description">title (id) description</option>
+					<option value="title (id), cat_title (catid)">title (id), cat_title (catid)</option>
+					<option value="title (id), cat_title (catid) - Hits: hits">title (id), cat_title (catid) - Hits: hits</option>
+					<option value="title (id) cat_title (catid) description">title (id) cat_title (catid) description</option>
 					<option value="image">image</option>
 					<option value="image title">image title</option>
 					<option value="image title (id)">image title (id)</option>
-					<option value="title (id) image cat_title (cat_id) description">title (id) image cat_title (cat_id) description</option>
-					<option value="title (id) image cat_title (cat_id) description url">title (id) image cat_title (cat_id) description url</option>
+					<option value="title (id) image cat_title (catid) description">title (id) image cat_title (catid) description</option>
+					<option value="title (id) image cat_title (catid) description url">title (id) image cat_title (catid) description url</option>
 				</field>
 				<field name="weblink_link_title" type="list" class="btn-group btn-group-yesno">
 					<option value="1">JYES</option>
@@ -108,15 +109,16 @@
 					<option value="asc">asc</option>
 					<option value="desc">desc</option>
 				</field>
-				<field name="wcategory_display" type="radio" class="btn-group">
+				<field name="wcategory_display" type="list">
 					<option value="title">title</option>
 					<option value="title (id)">title (id)</option>
-					<option value="title (id) description">description</option>
-					<option value="title (id) | Hits: hits">title (id), cat_title (cat_id) | Hits: hits</option>
+					<option value="title (id) description">title (id) description</option>
+					<option value="title (id) | Hits: hits">title (id), cat_title (catid) | Hits: hits</option>
 					<option value="image">image</option>
 					<option value="image title">image title</option>
 					<option value="image title (id)">image title (id)</option>
-					<option value="title (id) image description">title (id) image cat_title (cat_id) description</option>/option>
+					<option value="title (id) description">title (id) description</option>/option>
+					<option value="title (id) image description">title (id) image description</option>/option>
 				</field>
 				<field name="wcategory_link_title" type="list" class="btn-group btn-group-yesno">
 					<option value="1">JYES</option>

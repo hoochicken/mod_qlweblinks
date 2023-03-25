@@ -5,13 +5,13 @@
  * @author 		Mareike Riegel mareike.riegel@ql.de
  * @license		GNU General Public License version 2 or later; see LICENSE.txt
  */
-use Joomla\CMS\Factory;
-
 /** @var stdClass $module */
+/** @var JRegistry $params */
 /** @var array $items */
+$template = $params->get('')
 ?>
 <ul class="qlweblinks module_<?= $module->id ?>">
 <?php foreach ($items as $k => $weblink): ?>
-    <li><?php print_r($weblink); ?></li>
+    <li><?php echo $weblink['content_with_span']; ?></li>
 <?php endforeach; ?>
 </ul>

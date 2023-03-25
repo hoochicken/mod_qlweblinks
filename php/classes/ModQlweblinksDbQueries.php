@@ -33,20 +33,21 @@ class ModQlweblinksDbQueries
     {
         $query = $this->getQueryWeblinks();
         $this->db->setQuery($query);
-        return $this->db->loadObjectList();
+        return $this->db->loadAssocList();
     }
 
     public function getCategories()
     {
         $query = $this->getQueryCategories();
         $this->db->setQuery($query);
-        return $this->db->loadObjectList();
+        return $this->db->loadAssocList();
     }
 
     private function getQueryWeblinks(): DatabaseQuery
     {
         $query = $this->getQuery();
-        $query->select('*')->from(self::TABLE_WEBLINKS)->where('`state` = 1');
+        $query->select('wl.*, c.title as cat_title')->from(self::TABLE_WEBLINKS . ' as wl')->where('`state` = 1');
+        $query->leftJoin(self::TABLE_CATEGORIES . ' as c', 'c.id = wl.catid');
         $where = '
             ( 
                 (`publish_up` IS NULL AND `publish_down` IS NULL)

@@ -17,5 +17,5 @@ defined('_JEXEC') or die;
 class ModQlweblinksRender
 {
 
-    public
+    
 }

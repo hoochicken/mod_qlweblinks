@@ -41,6 +41,15 @@ class ModQlweblinksHelper
         return $Queries->getCategories();
     }
 
+    public function getCategoriesWithWeblinks()
+    {
+        $Queries = new php\classes\ModQlweblinksDbQueries($this->module, $this->params, $this->db);
+        $categories = $Queries->getCategories();
+        $catids = array_column($categories, 'id');
+        $weblinks = $Queries->getWeblinksByCategoryIds($catids);
+        return $Queries->getCategories();
+    }
+
     public function renderAll(array $items): array
     {
         foreach ($items as $k => $item) {

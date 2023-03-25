@@ -20,6 +20,7 @@ require_once dirname(__FILE__).'/ModQlweblinksHelper.php';
 /** @var $params  */
 $qlweblinksHelper = new ModQlweblinksHelper($module, $params, Factory::getContainer()->get('DatabaseDriver'));
 $items = match ($params->get('type')) {
+    'by_category' => $qlweblinksHelper->getCategoriesWithWeblinks(),
     'categories_all' => $qlweblinksHelper->getCategories(),
     default => $qlweblinksHelper->getWeblinksAll(),
 };

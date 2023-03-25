@@ -29,14 +29,27 @@ class ModQlweblinksDbQueries
         $this->db = $db;
     }
 
-    public function getWeblinksAll()
+    public function getWeblinksAll(): array
     {
         $query = $this->getQueryWeblinks();
         $this->db->setQuery($query);
         return $this->db->loadAssocList();
     }
 
-    public function getCategories()
+    public function getWeblinksByCategoryIds(array $catids = []): array
+    {
+        $catids = $this->cleanArrayInt($catids);
+        if (0 === count($catids)) {
+            return [];
+        }
+        $query = $this->getQueryWeblinks();
+        $query->where(sprintf('catid IN(%s)', implode(',', $catids)));
+        $this->db->setQuery($query);
+        $weblinks = $this->db->loadAssocList();
+        return self::chunkArrayByAttribute($weblinks, 'catid');
+    }
+
+    public function getCategories(): array
     {
         $query = $this->getQueryCategories();
         $this->db->setQuery($query);
@@ -73,5 +86,24 @@ class ModQlweblinksDbQueries
     private function getQuery(): DatabaseQuery
     {
         return $this->db->getQuery(true);
+    }
+
+    private function cleanArrayInt($integers)
+    {
+        array_walk($integers, function(&$item) { return (int)$item; });
+        return array_filter(array_unique($integers));
+    }
+
+    static private function chunkArrayByAttribute(array $data, string $attribute): array
+    {
+        $return = [];
+        foreach ($data as $item) {
+            $attributeValue = $item[$attribute] ?? 0;
+            if (!isset($return[$attributeValue])) {
+                $return[$attributeValue] = [];
+            }
+            $return[$attributeValue][] = $item;
+        }
+        return $return;
     }
 }

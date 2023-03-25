@@ -25,7 +25,7 @@ class ModQlweblinksHelper
     public \JRegistry $params;
     public DatabaseDriver $db;
 
-    function __construct(\stdClass $module, \JRegistry $params, DatabaseDriver $db)
+    public function __construct(\stdClass $module, \JRegistry $params, DatabaseDriver $db)
     {
         $this->module = $module;
         $this->params = $params;

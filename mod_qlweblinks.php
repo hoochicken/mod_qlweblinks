@@ -9,6 +9,7 @@
 namespace ModQlweblinks;
 // no direct access
 use JModuleHelper;
+use Joomla\CMS\Factory;
 
 defined('_JEXEC') or die;
 require_once dirname(__FILE__).'/php/classes/ModQlweblinksDbQueries.php';
@@ -16,14 +17,9 @@ require_once dirname(__FILE__).'/ModQlweblinksHelper.php';
 
 /** @var $module  */
 /** @var $params  */
-$qlweblinksHelper = new ModQlweblinksHelper($module, $params, \JFactory::getDbo());
-switch ($params->get('type')) {
-    case 'categories_all':
-        $items = $qlweblinksHelper->getCategories();
-        break;
-    case 'weblinks_all':
-    default:
-        $items = $qlweblinksHelper->getWeblinksAll();
-        //$items = $qlweblinksHelper->renderWeblinks();
-}
+$qlweblinksHelper = new ModQlweblinksHelper($module, $params, Factory::getContainer()->get('DatabaseDriver'));
+$items = match ($params->get('type')) {
+    'categories_all' => $qlweblinksHelper->getCategories(),
+    default => $qlweblinksHelper->getWeblinksAll(),
+};
 require JModuleHelper::getLayoutPath('mod_qlweblinks', $params->get('layout', 'default'));

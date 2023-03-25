@@ -15,6 +15,9 @@ require_once dirname(__FILE__).'/ModQlweblinksHelper.php';
 
 /** @var $module  */
 /** @var $params  */
-$obj_helper = new ModQlweblinksHelper($module, $params);
+$qlweblinksHelper = new ModQlweblinksHelper($module, $params, \JFactory::getDbo());
+
+$weblinks = $qlweblinksHelper->getWeblinksAll();
+$weblinks = $qlweblinksHelper->getCategories();
 
 require JModuleHelper::getLayoutPath('mod_qlweblinks', $params->get('layout', 'default'));

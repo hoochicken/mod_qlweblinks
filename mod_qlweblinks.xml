@@ -111,14 +111,12 @@
 				<field name="wcategory_display" type="radio" class="btn-group">
 					<option value="title">title</option>
 					<option value="title (id)">title (id)</option>
-					<option value="title (id) url">title (id) url</option>
 					<option value="title (id) description">description</option>
 					<option value="title (id) | Hits: hits">title (id), cat_title (cat_id) | Hits: hits</option>
 					<option value="image">image</option>
 					<option value="image title">image title</option>
 					<option value="image title (id)">image title (id)</option>
-					<option value="title (id) image description">title (id) image cat_title (cat_id) description</option>
-					<option value="title (id) image description url">title (id) image cat_title (cat_id) description url</option>
+					<option value="title (id) image description">title (id) image cat_title (cat_id) description</option>/option>
 				</field>
 				<field name="wcategory_link_title" type="list" class="btn-group btn-group-yesno">
 					<option value="1">JYES</option>

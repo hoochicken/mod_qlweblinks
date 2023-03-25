@@ -8,6 +8,7 @@
 use Joomla\CMS\Factory;
 
 /** @var stdClass $module */
+/** @var array $weblinks */
 
 // no direct access
 defined('_JEXEC') or die;
@@ -18,4 +19,8 @@ $wa->useStyle('qlweblinks');
 
 <div class="qlweblinks" id="module<?php echo $module->id ?>">
     <h1>QL Weblinks</h1>
+    <?php
+    foreach ($weblinks as $k => $weblink): ?>
+        <?php print_r($weblink); ?>
+    <?php endforeach; ?>
 </div>

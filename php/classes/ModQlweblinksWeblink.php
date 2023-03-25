@@ -1,6 +1,6 @@
 <?php
 
-namespace ModQlweblinks\php\classes\ModQlweblinksDbQueries;
+namespace ModQlweblinks\php\classes;
 
 use Joomla\Database\DatabaseDriver;
 use Joomla\Database\DatabaseQuery;
@@ -14,12 +14,7 @@ use Joomla\Database\DatabaseQuery;
 
 // no direct access
 defined('_JEXEC') or die;
-class ModQlweblinksRender
+class ModQlweblinksWeblink
 {
-
-    public function render()
-    {
-
-    }
 
 }

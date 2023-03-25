@@ -1,6 +1,6 @@
 <?php
 
-namespace ModQlweblinks\php\classes\ModQlweblinksDbQueries;
+namespace ModQlweblinks\php\classes;
 
 use Joomla\Database\DatabaseDriver;
 use Joomla\Database\DatabaseQuery;

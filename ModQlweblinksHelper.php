@@ -34,7 +34,7 @@ class ModQlweblinksHelper
 
     public function getWeblinksAll()
     {
-        $Queries = new php\classes\ModQlweblinksDbQueries\ModQlweblinksDbQueries($this->module, $this->params, $this->db);
+        $Queries = new php\classes\ModQlweblinksDbQueries($this->module, $this->params, $this->db);
         return $Queries->getWeblinksAll();
     }
 

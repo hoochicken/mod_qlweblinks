@@ -31,26 +31,42 @@ class ModQlweblinksDbQueries
 
     public function getWeblinksAll(): array
     {
-        $query = $this->getQueryWeblinks();
-        $this->db->setQuery($query);
-        return $this->db->loadAssocList();
+        return $this->getWeblinkByIds([]);
     }
 
-    public function getWeblinksByCategoryIds(array $catids = []): array
+    public function getWeblinkById(int $id): array
     {
-        $catids = $this->cleanArrayInt($catids);
-        if (0 === count($catids)) {
-            return [];
+        return $this->getWeblinkByIds([(int)$id]);
+    }
+
+    public function getWeblinkByIds(array $ids): array
+    {
+        $ids = $this->cleanArrayInt($ids);
+        $query = $this->getQueryWeblinks();
+        if (0 < count($ids)) {
+            $query->where(sprintf('wl.id IN(%s)', implode(',', $ids)));
         }
-        $query = $this->getQueryWeblinks();
-        $query->where(sprintf('catid IN(%s)', implode(',', $catids)));
         $this->db->setQuery($query);
         return $this->db->loadAssocList();
     }
 
-    public function getCategories(): array
+    public function getWeblinksByCategoryId(int $categoryId): array
     {
-        $query = $this->getQueryCategories();
+        return $this->getWeblinksByCategoryIds([(int)$categoryId]);
+    }
+
+    public function getCategoriesAll(): array
+    {
+        return $this->getWeblinksByCategoryIds([]);
+    }
+
+    public function getWeblinksByCategoryIds(array $categoryIds): array
+    {
+        $ids = $this->cleanArrayInt($categoryIds);
+        $query = $this->getQueryWeblinks();
+        if (0 < count($ids)) {
+            $query->where(sprintf('wl.catid IN(%s)', implode(',', $categoryIds)));
+        }
         $this->db->setQuery($query);
         return $this->db->loadAssocList();
     }

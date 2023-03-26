@@ -12,16 +12,24 @@ use JModuleHelper;
 use Joomla\CMS\Factory;
 
 defined('_JEXEC') or die;
+/** @var $module  */
+/** @var $params  */
 require_once dirname(__FILE__).'/php/classes/ModQlweblinksDbQueries.php';
 require_once dirname(__FILE__).'/php/classes/ModQlweblinksRender.php';
 require_once dirname(__FILE__).'/ModQlweblinksHelper.php';
 
-/** @var $module  */
-/** @var $params  */
+$type = explode(':', $params->get('type'));
+$typeInGeneral = $type[0] ?? 'weblink';
+$type = $type[1] ?? 'all';
+$weblinkIds = $params->get('weblinkids', 0);
+$categoryIds = $params->get('categoryIds', 0);
+
 $qlweblinksHelper = new ModQlweblinksHelper($module, $params, Factory::getContainer()->get('DatabaseDriver'));
-$items = match ($params->get('type')) {
-    'by_category' => $qlweblinksHelper->getCategoriesWithWeblinks(),
-    'categories_all' => $qlweblinksHelper->getCategories(),
+$items = match ($type) {
+    'single' => $qlweblinksHelper->getWeblinkById($weblinkIds),
+    'by_category' => $qlweblinksHelper->getWeblinksByCategoryId($categoryIds),
+    'categories_and_their_weblinks' => $qlweblinksHelper->getCategoriesWithWeblinks(),
+    'categories_all' => $qlweblinksHelper->getCategoriesAll(),
     default => $qlweblinksHelper->getWeblinksAll(),
 };
 

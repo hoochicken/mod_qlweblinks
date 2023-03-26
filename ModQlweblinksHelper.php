@@ -35,16 +35,40 @@ class ModQlweblinksHelper
         return $Queries->getWeblinksAll();
     }
 
-    public function getCategories()
+    public function getWeblinkById(int $id)
     {
         $Queries = new php\classes\ModQlweblinksDbQueries($this->module, $this->params, $this->db);
-        return $Queries->getCategories();
+        return $Queries->getWeblinkById($id);
+    }
+
+    public function getWeblinkByIds(array $ids)
+    {
+        $Queries = new php\classes\ModQlweblinksDbQueries($this->module, $this->params, $this->db);
+        return $Queries->getWeblinkByIds($ids);
+    }
+
+    public function getWeblinksByCategoryId(int $id)
+    {
+        $Queries = new php\classes\ModQlweblinksDbQueries($this->module, $this->params, $this->db);
+        return $Queries->getWeblinksByCategoryId($id);
+    }
+
+    public function getWeblinksByCategoryIds(array $ids)
+    {
+        $Queries = new php\classes\ModQlweblinksDbQueries($this->module, $this->params, $this->db);
+        return $Queries->getWeblinksByCategoryIds($ids);
+    }
+
+    public function getCategoriesAll()
+    {
+        $Queries = new php\classes\ModQlweblinksDbQueries($this->module, $this->params, $this->db);
+        return $Queries->getCategoriesAll();
     }
 
     public function getCategoriesWithWeblinks()
     {
         $Queries = new php\classes\ModQlweblinksDbQueries($this->module, $this->params, $this->db);
-        $categories = $Queries->getCategories();
+        $categories = $Queries->getCategoriesAll();
         return self::enrichCategoriesWithWeblinks($categories, $Queries->getWeblinksByCategoryIds(array_column($categories, 'id')));
     }
 
@@ -62,6 +86,9 @@ class ModQlweblinksHelper
         $weblinks = self::chunkArrayByAttribute($weblinks, 'catid');
         foreach ($categories as $k => $category) {
             $catid = $category['id'];
+            if (!isset($categories[$k]['weblinks'])) {
+                $categories[$k]['weblinks'] = [];
+            }
             $categories[$k]['weblinks'] = $weblinks[$catid] ?? [];
         }
         return $categories;

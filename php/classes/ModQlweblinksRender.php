@@ -38,7 +38,8 @@ class ModQlweblinksRender
                 if (!is_string($item)) {
                     return $item;
                 }
-                $item = ModQlweblinksRender::generateSpan($item, $placeholder);
+                $class = strtolower(preg_replace('/[^(a-zA-Z0-9)]/', '', $placeholder));
+                $item = ModQlweblinksRender::generateSpan($item, $class);
             });
         }
         return self::replacePlaceholders($template, $data);

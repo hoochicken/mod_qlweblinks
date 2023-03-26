@@ -48,7 +48,8 @@
 					<option value="weblink:by_category">weblink:by_category</option>
 					<option value="category:category">category</option>
 					<option value="category:category_and_its_weblinks">category_and_its_weblinks</option>
-					<option value="category:categories_all">categories</option>
+					<option value="category:categories_all">categories_all</option>
+					<option value="category:categories_by_parent">categories_by_parent</option>
 					<option value="category:categories_and_their_weblinks">categories_and_their_weblinks</option>
 				</field>
 				<field name="display" type="list" label="MOD_QLKWEBLINKS_DISPLAY">

@@ -13,5 +13,6 @@ $template = $params->get('')
 <ul class="qlweblinks module_<?= $module->id ?>">
 <?php foreach ($items as $k => $weblink): ?>
     <li><?php echo $weblink['content_with_span']; ?></li>
+    <!--li><?php echo $weblink['content']; ?></li-->
 <?php endforeach; ?>
 </ul>

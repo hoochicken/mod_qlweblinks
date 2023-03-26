@@ -27,11 +27,15 @@ $categoryIds = $params->get('categoryIds', 0);
 $qlweblinksHelper = new ModQlweblinksHelper($module, $params, Factory::getContainer()->get('DatabaseDriver'));
 $items = match ($type) {
     'single' => $qlweblinksHelper->getWeblinkById($weblinkIds),
+    // 'all' => $qlweblinksHelper->getWeblinksAll(),
     'by_category' => $qlweblinksHelper->getWeblinksByCategoryId($categoryIds),
+    'category' => $qlweblinksHelper->getCategoryById($categoryIds),
+    'category_and_its_weblinks' => $qlweblinksHelper->getCategoryByIdWithWeblinks($categoryIds),
     'categories_and_their_weblinks' => $qlweblinksHelper->getCategoriesWithWeblinks(),
+    'categories_by_parent' => $qlweblinksHelper->getCategoriesByParentIdWithWeblinks($categoryIds),
     'categories_all' => $qlweblinksHelper->getCategoriesAll(),
     default => $qlweblinksHelper->getWeblinksAll(),
 };
 
-$items = $qlweblinksHelper->renderAll($items);
+$items = $qlweblinksHelper->renderAll($items, $typeInGeneral);
 require JModuleHelper::getLayoutPath('mod_qlweblinks', $params->get('layout', 'default'));

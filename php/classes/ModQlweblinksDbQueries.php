@@ -57,7 +57,31 @@ class ModQlweblinksDbQueries
 
     public function getCategoriesAll(): array
     {
-        return $this->getWeblinksByCategoryIds([]);
+        return $this->getCategoriesByIds([]);
+    }
+
+    public function getCategoriesById(int $categoryIds): array
+    {
+        return $this->getCategoriesByIds([$categoryIds]);
+    }
+
+    public function getCategoriesByParentId(int $categoryId): array
+    {
+        $query = $this->getQueryCategories();
+        $query->where(sprintf('parent_id = %s', $categoryId));
+        $this->db->setQuery($query);
+        return $this->db->loadAssocList();
+    }
+
+    public function getCategoriesByIds(array $categoryIds = []): array
+    {
+        $categoryIds = $this->cleanArrayInt($categoryIds);
+        $query = $this->getQueryCategories();
+        if (0 < count($categoryIds)) {
+            $query->where(sprintf('id IN(%s)', implode(',', $categoryIds)));
+        }
+        $this->db->setQuery($query);
+        return $this->db->loadAssocList();
     }
 
     public function getWeblinksByCategoryIds(array $categoryIds): array

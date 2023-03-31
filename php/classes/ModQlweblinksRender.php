@@ -28,7 +28,7 @@ class ModQlweblinksRender
         'image',
     ];
 
-    static public function render(string $template, array $data, bool $setSpans = false): string
+    static public function renderList(string $template, array $data, bool $setSpans = false): string
     {
         $template = self::setPlaceholdersInTemplate($template, self::ATTRIBUTES);
         $data = self::getDataArrayWithPlaceholdersAsKey($data);
@@ -43,6 +43,19 @@ class ModQlweblinksRender
             });
         }
         return self::replacePlaceholders($template, $data);
+    }
+
+    static public function renderTable(string $template, array $data, bool $setSpans = false): string
+    {
+        $template = self::setPlaceholdersInTemplate($template, self::ATTRIBUTES);
+        $template = str_replace(['(', ')'], '', $template);
+        $template = ModQlweblinksRender::generateTemplateTableRow($template);
+
+        $data = self::getDataArrayWithPlaceholdersAsKey($data);
+        $data = array_filter($data, function($item) {return is_string($item) || is_numeric($item); });
+
+        return self::replacePlaceholders($template, $data);
+        // return sprintf('<table>%s</table>', self::replacePlaceholders($template, $data));
     }
 
     static private function setPlaceholdersInTemplate(string $template, array $attributes): string
@@ -78,5 +91,16 @@ class ModQlweblinksRender
     static private function generateSpan(?string $content, string $attribute = ''): string
     {
         return sprintf('<span class="%s">%s</span>', $attribute, $content);
+    }
+
+    static private function generateTemplateTableRow(?string $template): string
+    {
+        $columns = explode(' ', $template);
+        array_walk($columns, function(&$item) {
+            $class = preg_replace('/[^(a-zA-Z0-9)]/', '', $item);
+            $item = sprintf('<td class="%s">%s</td>', $class, $item);
+        });
+        return implode('', $columns);
+        // return sprintf('<tr>%s</tr>', implode('', $columns));
     }
 }

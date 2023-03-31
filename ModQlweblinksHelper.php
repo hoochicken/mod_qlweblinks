@@ -22,9 +22,10 @@ class ModQlweblinksHelper
     public \JRegistry $params;
     public DatabaseDriver $db;
 
-    const TEMPLATE_WEBLINK = 'weblink';
-    const TEMPLATE_CATEGORY = 'category';
-
+    const TYPE_WEBLINK = 'weblink';
+    const TYPE_CATEGORY = 'category';
+    const DISPLAY_LIST = 'list';
+    const DISPLAY_TABLE = 'table';
     public function __construct(\stdClass $module, \JRegistry $params, DatabaseDriver $db)
     {
         $this->module = $module;
@@ -78,51 +79,79 @@ class ModQlweblinksHelper
     {
         $Queries = $this->getQuery();
         $categories = $Queries->getCategoriesAll();
-        return self::enrichCategoriesWithWeblinks($categories, $Queries->getWeblinksByCategoryIds(array_column($categories, 'id')));
+        return self::filterWeblinksForCategory($categories, $Queries->getWeblinksByCategoryIds(array_column($categories, 'id')));
     }
 
     public function getCategoryByIdWithWeblinks(int $categoryId)
     {
         $Queries = $this->getQuery();
         $categories = $Queries->getCategoriesById($categoryId);
-        return self::enrichCategoriesWithWeblinks($categories, $Queries->getWeblinksByCategoryId($categoryId));
+        $category = $categories[0] ?? [];
+        $category['weblinks'] = self::filterWeblinksForCategory($categories, $Queries->getWeblinksByCategoryIds(array_column($categories, 'id')));
+        return [$category];
     }
 
     public function getCategoriesByParentIdWithWeblinks(int $categoryId)
     {
         $Queries = $this->getQuery();
         $categories = $Queries->getCategoriesByParentId($categoryId);
-        return self::enrichCategoriesWithWeblinks($categories, $Queries->getWeblinksByCategoryId($categoryId));
+        foreach ($categories as $k => $category) {
+            if (!is_numeric($category['id'])) {
+                continue;
+            }
+            $categories[$k]['weblinks'] = self::filterWeblinksForCategory($categories, $Queries->getWeblinksByCategoryId($category['id']));
+        }
+        return $categories;
     }
 
-    public function renderAll(array $items, $type = self::TEMPLATE_WEBLINK): array
+    public function getCategoriesByParent(int $categoryId)
     {
-        $template = (self::TEMPLATE_WEBLINK === $type)
+        $Queries = $this->getQuery();
+        return $Queries->getCategoriesByParentId($categoryId);
+    }
+
+    public function renderAll(array $items, $type = self::TYPE_WEBLINK): array
+    {
+        $template = (self::TYPE_WEBLINK === $type)
             ? $this->params->get('weblink_template', 'title')
-            : $this->params->get('wcategory_display', 'title');
+            : $this->params->get('category_template', 'title');
+        $display = (self::TYPE_WEBLINK === $type)
+            ? $this->params->get('weblink_display', 'list')
+            : $this->params->get('category_display', 'list');
         foreach ($items as $k => $item) {
-            $items[$k]['content_with_span'] = ModQlweblinksRender::render($template, $item, true);
-            $items[$k]['content'] = ModQlweblinksRender::render($template, $item);
-            if (self::TEMPLATE_CATEGORY === $type) {
-                $items[$k]['weblinks'] = self::renderAll($items[$k]['weblinks'], self::TEMPLATE_WEBLINK);
+            $items[$k]['content'] = self::render($template, $item, $display);
+            $items[$k]['content_with_span'] = self::render($template, $item, $display, true);
+            if (self::TYPE_CATEGORY === $type && isset($items[$k]['weblinks']) && is_array($items[$k]['weblinks']) && count($items[$k]['weblinks']) > 0) {
+                $items[$k]['weblinks'] = self::renderAll($items[$k]['weblinks'], self::TYPE_WEBLINK);
             }
         }
         return $items;
     }
 
-    public function getQuery()
+    public static function render(string $template, array $item, string $display, bool $setSpan = false): string
     {
-        return new php\classes\ModQlweblinksDbQueries($this->module, $this->params, $this->db);;
+        return match ($display) {
+            self::DISPLAY_TABLE => ModQlweblinksRender::renderTable($template, $item, $setSpan),
+            default => ModQlweblinksRender::renderList($template, $item, $setSpan),
+        };
     }
 
-    public static function enrichCategoriesWithWeblinks($categories, $weblinks): array
+    public function getQuery()
+    {
+        return new php\classes\ModQlweblinksDbQueries($this->module, $this->params, $this->db);
+    }
+
+    public static function filterWeblinksForCategory(array $categories, array $weblinks): array
     {
         $weblinks = self::chunkArrayByAttribute($weblinks, 'catid');
         foreach ($categories as $k => $category) {
             $catid = $category['id'];
-            $categories[$k]['weblinks'] = $weblinks[$catid] ?? [];
+            if (!isset($weblinks[$catid])) {
+                continue;
+            }
+            return $weblinks[$catid];
         }
-        return $categories;
+        return [];
     }
 
     static private function chunkArrayByAttribute(array $data, string $attribute): array

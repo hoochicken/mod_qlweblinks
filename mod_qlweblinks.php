@@ -21,18 +21,18 @@ require_once dirname(__FILE__).'/ModQlweblinksHelper.php';
 $type = explode(':', $params->get('type'));
 $typeInGeneral = $type[0] ?? 'weblink';
 $type = $type[1] ?? 'all';
-$weblinkIds = $params->get('weblinkids', 0);
+$weblinkIds = $params->get('weblinkIds', 0);
 $categoryIds = $params->get('categoryIds', 0);
 
 $qlweblinksHelper = new ModQlweblinksHelper($module, $params, Factory::getContainer()->get('DatabaseDriver'));
 $items = match ($type) {
     'single' => $qlweblinksHelper->getWeblinkById($weblinkIds),
-    // 'all' => $qlweblinksHelper->getWeblinksAll(),
     'by_category' => $qlweblinksHelper->getWeblinksByCategoryId($categoryIds),
     'category' => $qlweblinksHelper->getCategoryById($categoryIds),
     'category_and_its_weblinks' => $qlweblinksHelper->getCategoryByIdWithWeblinks($categoryIds),
     'categories_and_their_weblinks' => $qlweblinksHelper->getCategoriesWithWeblinks(),
-    'categories_by_parent' => $qlweblinksHelper->getCategoriesByParentIdWithWeblinks($categoryIds),
+    'categories_by_parent' => $qlweblinksHelper->getCategoriesByParent($categoryIds),
+    'categories_by_parent_and_their_weblinks' => $qlweblinksHelper->getCategoriesByParentIdWithWeblinks($categoryIds),
     'categories_all' => $qlweblinksHelper->getCategoriesAll(),
     default => $qlweblinksHelper->getWeblinksAll(),
 };

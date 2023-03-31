@@ -9,13 +9,23 @@ use Joomla\CMS\Factory;
 
 /** @var stdClass $module */
 /** @var array $weblinks */
+/** @var \Joomla\Registry\Registry $params */
 
 // no direct access
 defined('_JEXEC') or die;
 $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
 $wa->registerStyle('qlweblinks', 'mod_qlweblinks/styles.css');
 $wa->useStyle('qlweblinks');
+
+$weblinkDisplay = $params->get('weblink_display', 'list');
+$categoryDisplay = $params->get('category_display', 'list');
 ?>
 <div class="qlweblinks" id="module<?php echo $module->id ?>">
-    <?php include __DIR__ . '/weblinks_list.php'; ?>
+    <?php
+    if (in_array(\ModQlweblinks\ModQlweblinksHelper::DISPLAY_TABLE, [$weblinkDisplay, $categoryDisplay])) {
+        include __DIR__ . '/default_table.php';
+    } else {
+        include __DIR__ . '/default_list.php';
+    }
+    ?>
 </div>

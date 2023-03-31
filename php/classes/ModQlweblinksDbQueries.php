@@ -98,7 +98,9 @@ class ModQlweblinksDbQueries
     private function getQueryWeblinks(): DatabaseQuery
     {
         $query = $this->getQuery();
-        $query->select('wl.*, c.title as cat_title')->from(self::TABLE_WEBLINKS . ' as wl')->where('`state` = 1');
+        $query->select('wl.*, c.title as cat_title')
+            ->from(self::TABLE_WEBLINKS . ' as wl')
+            ->where('`state` = 1');
         $query->leftJoin(self::TABLE_CATEGORIES . ' as c', 'c.id = wl.catid');
         $where = '
             ( 
@@ -111,13 +113,19 @@ class ModQlweblinksDbQueries
                 (`publish_up`<= NOW() AND `publish_down` >= NOW())
             )';
         $query->where($where);
+        $ordering = sprintf('%s %s', $this->params->get('weblink_ordering', 'title'), $this->params->get('weblink_order_dir', 'ASC'));
+        $query->order($ordering);
         return $query;
     }
 
     private function getQueryCategories(): DatabaseQuery
     {
         $query = $this->getQuery();
-        $query->select('*')->from(self::TABLE_CATEGORIES)->where('`published` = 1');
+        $query->select('*')
+            ->from(self::TABLE_CATEGORIES)
+            ->where('`published` = 1');
+        $ordering = sprintf('%s %s', $this->params->get('category_ordering', 'title'), $this->params->get('category_order_dir', 'ASC'));
+        $query->order([$ordering]);
         $where = '`extension` = "com_weblinks"';
         return $query->where($where);
     }

@@ -49,16 +49,12 @@
 					<option value="category:category">category</option>
 					<option value="category:category_and_its_weblinks">category_and_its_weblinks</option>
 					<option value="category:categories_all">categories_all</option>
-					<option value="category:categories_by_parent">categories_by_parent</option>
 					<option value="category:categories_and_their_weblinks">categories_and_their_weblinks</option>
-				</field>
-				<field name="display" type="list" label="MOD_QLKWEBLINKS_DISPLAY">
-					<option value="list">list</option>
-					<option value="table">table</option>
-					<option value="grid">grid</option>
+					<option value="category:categories_by_parent">categories_by_parent</option>
+					<option value="category:categories_by_parent_and_their_weblinks">categories_by_parent_and_their_weblinks</option>
 				</field>
 				<!--# query="SELECT CONCAT(title , '(' , id , ')' as title, id FROM #__weblinks WHERE state=1" -->
-				<field name="weblinkids" type="sql" label="MOD_QLKWEBLINKS_WEBLINKIDS"
+				<field name="weblinkIds" type="sql" label="MOD_QLKWEBLINKS_WEBLINKIDS"
 					   query="SELECT CONCAT(title , ' (' , id , ')') AS title, id FROM #__weblinks WHERE state=1"
 					   key_field="id"
 					   value_field="title"
@@ -74,16 +70,6 @@
 				</field>
 			</fieldset>
 			<fieldset name="weblink">
-				<field name="weblink_ordering" type="list" label="MOD_QLKWEBLINKS_ORDERING">
-					<option value="title">title</option>
-					<option value="created_at">created_at</option>
-					<option value="left">ordering</option>
-					<option value="id">id</option>
-				</field>
-				<field name="weblink_order_dir" type="list" label="MOD_QLKWEBLINKS_ORDERDIRECTION">
-					<option value="asc">asc</option>
-					<option value="desc">desc</option>
-				</field>
 				<field name="weblink_template" type="list" label="MOD_QLKWEBLINKS_DISPLAY" default="title">
 					<option value="title">title</option>
 					<option value="title (id)">title (id)</option>
@@ -97,6 +83,22 @@
 					<option value="image title (id)">image title (id)</option>
 					<option value="title (id) image cat_title (catid) description">title (id) image cat_title (catid) description</option>
 					<option value="title (id) image cat_title (catid) description url">title (id) image cat_title (catid) description url</option>
+				</field>
+				<field name="weblink_display" type="list" label="MOD_QLKWEBLINKS_DISPLAY">
+					<option value="list">list</option>
+					<option value="table">table</option>
+					<option value="bare">bare (comma split)</option>
+					<!--option value="grid">grid</option-->
+				</field>
+				<field name="weblink_ordering" type="list" label="MOD_QLKWEBLINKS_ORDERING">
+					<option value="title">title</option>
+					<option value="created">created_at</option>
+					<option value="ordering">ordering</option>
+					<option value="id">id</option>
+				</field>
+				<field name="weblink_order_dir" type="list" label="MOD_QLKWEBLINKS_ORDERDIRECTION">
+					<option value="asc">asc</option>
+					<option value="desc">desc</option>
 				</field>
 				<field name="weblink_link_title" type="list" class="btn-group btn-group-yesno" label="MOD_QLKWEBLINKS_LINKTITLE">
 					<option value="1">JYES</option>
@@ -112,22 +114,7 @@
 				</field>
 			</fieldset>
 			<fieldset name="category">
-				<field name="wcategory_display" type="list" label="MOD_QLKWEBLINKS_DISPLAY">
-					<option value="list">list</option>
-					<option value="table">table</option>
-					<option value="grid">grid</option>
-				</field>
-				<field name="wcategory_ordering" type="list" label="MOD_QLKWEBLINKS_ORDERING">
-					<option value="title">title</option>
-					<option value="created_at">created_at</option>
-					<option value="left">ordering</option>
-					<option value="id">id</option>
-				</field>
-				<field name="wcategory_order_dir" type="list" label="MOD_QLKWEBLINKS_ORDERDIRECTION">
-					<option value="asc">asc</option>
-					<option value="desc">desc</option>
-				</field>
-				<field name="wcategory_display" type="list" label="MOD_QLKWEBLINKS_DISPLAY" default="title">
+				<field name="category_template" type="list" label="MOD_QLKWEBLINKS_DISPLAY" default="title">
 					<option value="title">title</option>
 					<option value="title (id)">title (id)</option>
 					<option value="title (id) description">title (id) description</option>
@@ -138,15 +125,30 @@
 					<option value="title (id) description">title (id) description</option>/option>
 					<option value="title (id) image description">title (id) image description</option>/option>
 				</field>
-				<field name="wcategory_link_title" type="list" class="btn-group btn-group-yesno" label="MOD_QLKWEBLINKS_LINKTITLE">
+				<field name="category_display" type="list" label="MOD_QLKWEBLINKS_DISPLAY">
+					<option value="list">list</option>
+					<option value="table">table</option>
+					<option value="grid">grid</option>
+				</field>
+				<field name="category_ordering" type="list" label="MOD_QLKWEBLINKS_ORDERING">
+					<option value="title">title</option>
+					<option value="created_time">created_at</option>
+					<option value="lft">ordering</option>
+					<option value="id">id</option>
+				</field>
+				<field name="category_order_dir" type="list" label="MOD_QLKWEBLINKS_ORDERDIRECTION">
+					<option value="asc">asc</option>
+					<option value="desc">desc</option>
+				</field>
+				<field name="category_link_title" type="list" class="btn-group btn-group-yesno" label="MOD_QLKWEBLINKS_LINKTITLE">
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>
-				<field name="wcategory_link_url" type="list" class="btn-group btn-group-yesno" label="MOD_QLKWEBLINKS_LINKURL">
+				<field name="category_link_url" type="list" class="btn-group btn-group-yesno" label="MOD_QLKWEBLINKS_LINKURL">
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>
-				<field name="wcategory_link_image" type="list" class="btn-group btn-group-yesno" label="MOD_QLKWEBLINKS_LINKIMAGE">
+				<field name="category_link_image" type="list" class="btn-group btn-group-yesno" label="MOD_QLKWEBLINKS_LINKIMAGE">
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>

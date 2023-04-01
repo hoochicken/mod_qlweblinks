@@ -30,19 +30,7 @@ class ModQlweblinksRender
 
     static public function renderList(string $template, array $data, bool $setSpans = false): string
     {
-        $template = self::setPlaceholdersInTemplate($template, self::ATTRIBUTES);
-        $data = self::getDataArrayWithPlaceholdersAsKey($data);
-        $data = array_filter($data, function($item) {return is_string($item) || is_numeric($item); });
-        if ($setSpans) {
-            array_walk($data, function (&$item, $placeholder) {
-                if (!is_string($item)) {
-                    return $item;
-                }
-                $class = strtolower(preg_replace('/[^(a-zA-Z0-9)]/', '', $placeholder));
-                $item = ModQlweblinksRender::generateSpan($item, $class);
-            });
-        }
-        return self::replacePlaceholders($template, $data);
+        return self::renderBare($template, $data, $setSpans);
     }
 
     static public function renderTable(string $template, array $data, bool $setSpans = false): string
@@ -56,6 +44,23 @@ class ModQlweblinksRender
 
         return self::replacePlaceholders($template, $data);
         // return sprintf('<table>%s</table>', self::replacePlaceholders($template, $data));
+    }
+
+    static public function renderBare(string $template, array $data, bool $setSpans = false): string
+    {
+        $template = self::setPlaceholdersInTemplate($template, self::ATTRIBUTES);
+        $data = self::getDataArrayWithPlaceholdersAsKey($data);
+        $data = array_filter($data, function($item) {return is_string($item) || is_numeric($item); });
+        if ($setSpans) {
+            array_walk($data, function (&$item, $placeholder) {
+                if (!is_string($item)) {
+                    return $item;
+                }
+                $class = strtolower(preg_replace('/[^(a-zA-Z0-9)]/', '', $placeholder));
+                $item = ModQlweblinksRender::generateSpan($item, $class);
+            });
+        }
+        return self::replacePlaceholders($template, $data);
     }
 
     static private function setPlaceholdersInTemplate(string $template, array $attributes): string

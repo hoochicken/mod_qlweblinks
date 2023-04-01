@@ -26,6 +26,7 @@ class ModQlweblinksHelper
     const TYPE_CATEGORY = 'category';
     const DISPLAY_LIST = 'list';
     const DISPLAY_TABLE = 'table';
+    const DISPLAY_BARE = 'bare';
     public function __construct(\stdClass $module, \JRegistry $params, DatabaseDriver $db)
     {
         $this->module = $module;
@@ -132,6 +133,7 @@ class ModQlweblinksHelper
     {
         return match ($display) {
             self::DISPLAY_TABLE => ModQlweblinksRender::renderTable($template, $item, $setSpan),
+            self::DISPLAY_BARE => ModQlweblinksRender::renderBare($template, $item, $setSpan),
             default => ModQlweblinksRender::renderList($template, $item, $setSpan),
         };
     }

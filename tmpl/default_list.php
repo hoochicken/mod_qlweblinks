@@ -8,17 +8,21 @@
 /** @var stdClass $module */
 /** @var JRegistry $params */
 /** @var array $items */
-$template = $params->get('')
+$weblinkDisplay = $params->get('weblink_display', 'list');
 ?>
 <ul class="qlweblinks module_<?= $module->id ?>">
 <?php foreach ($items as $k => $item): ?>
     <li><?php echo $item['content_with_span']; ?>
-        <ul>
-            <?php if (isset($item['weblinks']) && is_array($item['weblinks']) && 0 < count($item['weblinks'])) foreach ($item['weblinks'] as $k2 => $weblink): ?>
-                <li><?php echo $weblink['content_with_span']; ?></li>
-                <!--li><?php echo $weblink['content']; ?></li-->
-            <?php endforeach; ?>
-        </ul>
+        <?php if (isset($item['weblinks']) && is_array($item['weblinks']) && 0 < count($item['weblinks'])) : ?>
+            <?php
+            $weblinks = $item['weblinks'];
+            if (\ModQlweblinks\ModQlweblinksHelper::DISPLAY_TABLE === $weblinkDisplay) {
+                include __DIR__ . '/default_weblinkstable.php';
+            } else {
+                include __DIR__ . '/default_weblinkslist.php';
+            }
+            ?>
+        <?php endif; ?>
     </li>
 <?php endforeach; ?>
 </ul>

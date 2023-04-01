@@ -41,27 +41,27 @@
 	<config>
 		<fields name="params" addfieldpath="/modules/mod_qlweblinks/php/fields" addrulepath="/modules/mod_qlweblinks/php/rules">
             <fieldset name="basic">
-				<field name="type" type="list" label="MOD_QLKWEBLINKS_TYPE" required="true">
+				<field name="type" type="list" label="MOD_QLWEBLINKS_TYPE" required="true">
 					<option value=""> - plz choose - </option>
-					<option value="weblink:single">weblink:single</option>
-					<option value="weblink:all">weblink:all</option>
-					<option value="weblink:by_category">weblink:by_category</option>
-					<option value="category:category">category</option>
-					<option value="category:category_and_its_weblinks">category_and_its_weblinks</option>
-					<option value="category:categories_all">categories_all</option>
-					<option value="category:categories_and_their_weblinks">categories_and_their_weblinks</option>
-					<option value="category:categories_by_parent">categories_by_parent</option>
-					<option value="category:categories_by_parent_and_their_weblinks">categories_by_parent_and_their_weblinks</option>
+					<option value="weblink:single">MOD_QLWEBLINKS_TYPE_WEBLINKSINGLE</option>
+					<option value="weblink:all">MOD_QLWEBLINKS_TYPE_WEBLINKALL</option>
+					<option value="weblink:by_category">MOD_QLWEBLINKS_TYPE_WEBLINKBYCATEGORY</option>
+					<option value="category:category">MOD_QLWEBLINKS_TYPE_CATEGORY</option>
+					<option value="category:category_and_its_weblinks">MOD_QLWEBLINKS_TYPE_CATEGORYANDITSWEBLINKS</option>
+					<option value="category:categories_all">MOD_QLWEBLINKS_TYPE_CATEGORYALL</option>
+					<option value="category:categories_and_their_weblinks">MOD_QLWEBLINKS_TYPE_CATEGORYALLANDTHEIRWEBLINKS</option>
+					<option value="category:categories_by_parent">MOD_QLWEBLINKS_TYPE_CATEGORYBYPARENT</option>
+					<option value="category:categories_by_parent_and_their_weblinks">MOD_QLWEBLINKS_TYPE_CATEGORYBYPARENTANDTHEIRWEBLINKS</option>
 				</field>
 				<!--# query="SELECT CONCAT(title , '(' , id , ')' as title, id FROM #__weblinks WHERE state=1" -->
-				<field name="weblinkIds" type="sql" label="MOD_QLKWEBLINKS_WEBLINKIDS"
+				<field name="weblinkIds" type="sql" label="MOD_QLWEBLINKS_WEBLINKIDS"
 					   query="SELECT CONCAT(title , ' (' , id , ')') AS title, id FROM #__weblinks WHERE state=1"
 					   key_field="id"
 					   value_field="title"
 				>
 					<option value=""> - plz choose - </option>
 				</field>
-				<field name="categoryIds" type="sql" label="MOD_QLKWEBLINKS_CATEGORYIDS"
+				<field name="categoryIds" type="sql" label="MOD_QLWEBLINKS_CATEGORYIDS"
 					   query="SELECT CONCAT(title , ' (' , id , ')') AS title, id FROM #__categories WHERE published='1' AND extension = 'com_weblinks'"
 					   key_field="id"
 					   value_field="title"
@@ -70,7 +70,7 @@
 				</field>
 			</fieldset>
 			<fieldset name="weblink">
-				<field name="weblink_template" type="list" label="MOD_QLKWEBLINKS_DISPLAY" default="title">
+				<field name="weblink_template" type="list" label="MOD_QLWEBLINKS_TEMPLATE" default="title">
 					<option value="title">title</option>
 					<option value="title (id)">title (id)</option>
 					<option value="title (id) url">title (id) url</option>
@@ -84,37 +84,41 @@
 					<option value="title (id) image cat_title (catid) description">title (id) image cat_title (catid) description</option>
 					<option value="title (id) image cat_title (catid) description url">title (id) image cat_title (catid) description url</option>
 				</field>
-				<field name="weblink_display" type="list" label="MOD_QLKWEBLINKS_DISPLAY">
-					<option value="list">list</option>
-					<option value="table">table</option>
-					<option value="bare">bare (comma split)</option>
-					<!--option value="grid">grid</option-->
+				<field name="weblink_display" type="list" label="MOD_QLWEBLINKS_DISPLAY">
+					<option value="list">MOD_QLWEBLINKS_LIST</option>
+					<option value="table">MOD_QLWEBLINKS_TABLE</option>
+					<option value="bare">MOD_QLWEBLINKS_BARE</option>
 				</field>
-				<field name="weblink_ordering" type="list" label="MOD_QLKWEBLINKS_ORDERING">
+				<field name="weblink_ordering" type="list" label="MOD_QLWEBLINKS_ORDERING">
 					<option value="title">title</option>
 					<option value="created">created_at</option>
 					<option value="ordering">ordering</option>
 					<option value="id">id</option>
 				</field>
-				<field name="weblink_order_dir" type="list" label="MOD_QLKWEBLINKS_ORDERDIRECTION">
-					<option value="asc">asc</option>
-					<option value="desc">desc</option>
+				<field name="weblink_order_dir" type="list" label="MOD_QLWEBLINKS_ORDERDIRECTION">
+					<option value="asc">MOD_QLWEBLINKS_ASC</option>
+					<option value="desc">MOD_QLWEBLINKS_DESC</option>
 				</field>
-				<field name="weblink_link_title" type="list" class="btn-group btn-group-yesno" label="MOD_QLKWEBLINKS_LINKTITLE">
+				<field name="weblink_link_title" type="list" class="btn-group btn-group-yesno" label="MOD_QLWEBLINKS_LINKTITLE">
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>
-				<field name="weblink_link_url" type="list" class="btn-group btn-group-yesno" label="MOD_QLKWEBLINKS_LINKURL">
+				<field name="weblink_link_target" type="list" label="MOD_QLWEBLINKS_LINKTARGET">
+					<option value="weblink_component">MOD_QLWEBLINKS_LINKTARGET_COMPONENT</option>
+					<option value="force_blank">MOD_QLWEBLINKS_LINKTARGET_BLANK</option>
+					<option value="force_self">MOD_QLWEBLINKS_LINKTARGET_SELF</option>
+				</field>
+				<field name="weblink_link_url" type="list" class="btn-group btn-group-yesno" label="MOD_QLWEBLINKS_LINKURL">
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>
-				<field name="weblink_link_image" type="list" class="btn-group btn-group-yesno" label="MOD_QLKWEBLINKS_LINKIMAGE">
+				<field name="weblink_link_image" type="list" class="btn-group btn-group-yesno" label="MOD_QLWEBLINKS_LINKIMAGE">
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>
 			</fieldset>
 			<fieldset name="category">
-				<field name="category_template" type="list" label="MOD_QLKWEBLINKS_DISPLAY" default="title">
+				<field name="category_template" type="list" label="MOD_QLWEBLINKS_TEMPLATE" default="title">
 					<option value="title">title</option>
 					<option value="title (id)">title (id)</option>
 					<option value="title (id) description">title (id) description</option>
@@ -125,30 +129,30 @@
 					<option value="title (id) description">title (id) description</option>/option>
 					<option value="title (id) image description">title (id) image description</option>/option>
 				</field>
-				<field name="category_display" type="list" label="MOD_QLKWEBLINKS_DISPLAY">
+				<field name="category_display" type="list" label="MOD_QLWEBLINKS_DISPLAY">
 					<option value="list">list</option>
 					<option value="table">table</option>
 					<option value="grid">grid</option>
 				</field>
-				<field name="category_ordering" type="list" label="MOD_QLKWEBLINKS_ORDERING">
+				<field name="category_ordering" type="list" label="MOD_QLWEBLINKS_ORDERING">
 					<option value="title">title</option>
 					<option value="created_time">created_at</option>
 					<option value="lft">ordering</option>
 					<option value="id">id</option>
 				</field>
-				<field name="category_order_dir" type="list" label="MOD_QLKWEBLINKS_ORDERDIRECTION">
-					<option value="asc">asc</option>
-					<option value="desc">desc</option>
+				<field name="category_order_dir" type="list" label="MOD_QLWEBLINKS_ORDERDIRECTION">
+					<option value="asc">MOD_QLWEBLINKS_ASC</option>
+					<option value="desc">MOD_QLWEBLINKS_DESC</option>
 				</field>
-				<field name="category_link_title" type="list" class="btn-group btn-group-yesno" label="MOD_QLKWEBLINKS_LINKTITLE">
+				<field name="category_link_title" type="list" class="btn-group btn-group-yesno" label="MOD_QLWEBLINKS_LINKTITLE">
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>
-				<field name="category_link_url" type="list" class="btn-group btn-group-yesno" label="MOD_QLKWEBLINKS_LINKURL">
+				<field name="category_link_url" type="list" class="btn-group btn-group-yesno" label="MOD_QLWEBLINKS_LINKURL">
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>
-				<field name="category_link_image" type="list" class="btn-group btn-group-yesno" label="MOD_QLKWEBLINKS_LINKIMAGE">
+				<field name="category_link_image" type="list" class="btn-group btn-group-yesno" label="MOD_QLWEBLINKS_LINKIMAGE">
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>

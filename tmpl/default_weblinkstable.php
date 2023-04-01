@@ -9,8 +9,10 @@
 /** @var JRegistry $params */
 /** @var array $weblinks */
 ?>
-<table class="qlweblinks module_<?= $module->id ?>">
+<table class="qlweblinks module_<?= $module->id ?> table table-striped">
+<tbody>
 <?php foreach ($weblinks as $k => $weblink): ?>
     <tr><?php echo $weblink['content_with_span']; ?></tr>
 <?php endforeach; ?>
+</tbody>
 </table>

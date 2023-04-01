@@ -11,23 +11,23 @@
 /** @var string $weblinkDisplay */
 // $template = $params->get('');
 ?>
-<table class="qlweblinks module_<?= $module->id ?>">
+<table class="qlweblinks module_<?= $module->id ?> table table-striped">
+    <tbody>
     <?php foreach ($items as $k => $item): ?>
     <tr><?php echo $item['content_with_span']; ?>
         <?php if (isset($item['weblinks']) && is_array($item['weblinks']) && 0 < count($item['weblinks'])) :
             $weblinks = $item['weblinks']; ?>
         <td>
-            <table>
-                <?php if (\ModQlweblinks\ModQlweblinksHelper::DISPLAY_TABLE === $weblinkDisplay) : ?>
-                    <?php include 'default_weblinkstable.php'; ?>
-                <?php elseif (\ModQlweblinks\ModQlweblinksHelper::DISPLAY_BARE === $weblinkDisplay) : ?>
-                    <?php include 'default_weblinksbare.php'; ?>
-                <?php else : ?>
-                    <?php include 'default_weblinkslist.php'; ?>
-                <?php endif; ?>
-            </table>
+            <?php if (\ModQlweblinks\ModQlweblinksHelper::DISPLAY_TABLE === $weblinkDisplay) : ?>
+                <?php include 'default_weblinkstable.php'; ?>
+            <?php elseif (\ModQlweblinks\ModQlweblinksHelper::DISPLAY_BARE === $weblinkDisplay) : ?>
+                <?php include 'default_weblinksbare.php'; ?>
+            <?php else : ?>
+                <?php include 'default_weblinkslist.php'; ?>
+            <?php endif; ?>
         </td>
         <?php endif; ?>
     </tr>
 <?php endforeach; ?>
+</tbody>
 </table>

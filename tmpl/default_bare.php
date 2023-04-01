@@ -8,10 +8,11 @@
 /** @var stdClass $module */
 /** @var JRegistry $params */
 /** @var array $items */
+$weblinkDisplay = $params->get('weblink_display', 'list');
 ?>
 <span class="qlweblinks module_<?= $module->id ?>">
 <?php foreach ($items as $kc => $item): ?>
     <span class="ql-category-bare"><?php echo $item['content_with_span']; ?></span><?php if (isset($item['weblinks']) && is_array($item['weblinks']) && 0 < count($item['weblinks'])) : ?><?php echo ': '; include 'default_weblinks.php'; ?>
-    <?php endif; ?><?php if ($kc > 0 && $kc < array_key_last($item)) echo ', '; ?><?php if ($kc > 0 && $kc === array_key_last($item)) echo '; '; ?>
+    <?php endif; ?><?php if ($kc > 0 && $kc < array_key_last($item) && \ModQlweblinks\ModQlweblinksHelper::DISPLAY_BARE === $weblinkDisplay) echo ', '; ?><?php if ($kc > 0 && $kc === array_key_last($item)) echo '; '; ?>
 <?php endforeach; ?>
 </span>

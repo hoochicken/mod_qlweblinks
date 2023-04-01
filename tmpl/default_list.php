@@ -14,14 +14,7 @@ $weblinkDisplay = $params->get('weblink_display', 'list');
 <?php foreach ($items as $k => $item): ?>
     <li><?php echo $item['content_with_span']; ?>
         <?php if (isset($item['weblinks']) && is_array($item['weblinks']) && 0 < count($item['weblinks'])) : ?>
-            <?php
-            $weblinks = $item['weblinks'];
-            if (\ModQlweblinks\ModQlweblinksHelper::DISPLAY_TABLE === $weblinkDisplay) {
-                include __DIR__ . '/default_weblinkstable.php';
-            } else {
-                include __DIR__ . '/default_weblinkslist.php';
-            }
-            ?>
+           <?php include 'default_weblinks.php'; ?>
         <?php endif; ?>
     </li>
 <?php endforeach; ?>

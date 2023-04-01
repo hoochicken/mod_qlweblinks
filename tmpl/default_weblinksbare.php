@@ -11,6 +11,6 @@
 ?>
 <span class="qlweblinks module_<?= $module->id ?>">
 <?php foreach ($weblinks as $kw => $weblink): ?>
-    <span class="ql-weblink-bare"><?php echo $weblink['content_with_span']; ?></span><?php if ($kw < array_key_last($weblinks)) echo ', '; ?>
+    <span class="ql-weblink-bare"><?php echo $weblink['content_with_span']; ?></span><?php if ($kw > 0 && $kw < array_key_last($weblinks)) echo ', '; ?>
 <?php endforeach; ?>
 </span>

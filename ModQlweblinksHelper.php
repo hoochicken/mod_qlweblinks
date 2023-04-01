@@ -132,8 +132,8 @@ class ModQlweblinksHelper
     public static function render(string $template, array $item, string $display, bool $setLink = true, bool $setSpan = false): string
     {
         return trim(match ($display) {
-            self::DISPLAY_TABLE => ModQlweblinksRender::renderTable($template, $item, $setLink = true, $setSpan),
-            self::DISPLAY_BARE => ModQlweblinksRender::renderBare($template, $item, $setLink = true, $setSpan),
+            self::DISPLAY_TABLE => ModQlweblinksRender::renderTable($template, $item, true, $setSpan),
+            self::DISPLAY_BARE => ModQlweblinksRender::renderBare($template, $item, true, $setSpan),
             default => ModQlweblinksRender::renderList($template, $item, $setLink = true, $setSpan),
         });
     }

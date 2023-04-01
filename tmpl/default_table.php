@@ -18,12 +18,8 @@
         <?php if (isset($item['weblinks']) && is_array($item['weblinks']) && 0 < count($item['weblinks'])) :
             $weblinks = $item['weblinks']; ?>
         <td>
-            <?php if (\ModQlweblinks\ModQlweblinksHelper::DISPLAY_TABLE === $weblinkDisplay) : ?>
-                <?php include 'default_weblinkstable.php'; ?>
-            <?php elseif (\ModQlweblinks\ModQlweblinksHelper::DISPLAY_BARE === $weblinkDisplay) : ?>
-                <?php include 'default_weblinksbare.php'; ?>
-            <?php else : ?>
-                <?php include 'default_weblinkslist.php'; ?>
+            <?php if (isset($item['weblinks']) && is_array($item['weblinks']) && 0 < count($item['weblinks'])) : ?>
+                <?php include 'default_weblinks.php'; ?>
             <?php endif; ?>
         </td>
         <?php endif; ?>

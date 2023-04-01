@@ -53,7 +53,6 @@
 					<option value="category:categories_by_parent">MOD_QLWEBLINKS_TYPE_CATEGORYBYPARENT</option>
 					<option value="category:categories_by_parent_and_their_weblinks">MOD_QLWEBLINKS_TYPE_CATEGORYBYPARENTANDTHEIRWEBLINKS</option>
 				</field>
-				<!--# query="SELECT CONCAT(title , '(' , id , ')' as title, id FROM #__weblinks WHERE state=1" -->
 				<field name="weblinkIds" type="sql" label="MOD_QLWEBLINKS_WEBLINKIDS"
 					   query="SELECT CONCAT(title , ' (' , id , ')') AS title, id FROM #__weblinks WHERE state=1"
 					   key_field="id"
@@ -104,9 +103,9 @@
 					<option value="0">JNO</option>
 				</field>
 				<field name="weblink_link_target" type="list" label="MOD_QLWEBLINKS_LINKTARGET">
-					<option value="weblink_component">MOD_QLWEBLINKS_LINKTARGET_COMPONENT</option>
+					<!--option value="weblink_component">MOD_QLWEBLINKS_LINKTARGET_COMPONENT</option-->
 					<option value="force_blank">MOD_QLWEBLINKS_LINKTARGET_BLANK</option>
-					<option value="force_self">MOD_QLWEBLINKS_LINKTARGET_SELF</option>
+					<!--option value="force_self">MOD_QLWEBLINKS_LINKTARGET_SELF</option-->
 				</field>
 				<field name="weblink_link_url" type="list" class="btn-group btn-group-yesno" label="MOD_QLWEBLINKS_LINKURL">
 					<option value="1">JYES</option>

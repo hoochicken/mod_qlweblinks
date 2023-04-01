@@ -8,6 +8,7 @@
 use Joomla\CMS\Factory;
 
 /** @var stdClass $module */
+/** @var array $items */
 /** @var array $weblinks */
 /** @var string $weblinkDisplay */
 /** @var string $typeInGeneral */
@@ -28,6 +29,11 @@ $categoryDisplay = $params->get('category_display', 'list');
             ||
             (\ModQlweblinks\ModQlweblinksHelper::TYPE_WEBLINK === $typeInGeneral && \ModQlweblinks\ModQlweblinksHelper::DISPLAY_TABLE === $weblinkDisplay)) {
         include __DIR__ . '/default_table.php';
+    } elseif (\ModQlweblinks\ModQlweblinksHelper::TYPE_WEBLINK === $typeInGeneral && \ModQlweblinks\ModQlweblinksHelper::DISPLAY_BARE === $weblinkDisplay) {
+        $weblinks = $items;
+        include __DIR__ . '/default_weblinksbare.php';
+    } elseif (\ModQlweblinks\ModQlweblinksHelper::TYPE_CATEGORY === $typeInGeneral && \ModQlweblinks\ModQlweblinksHelper::DISPLAY_BARE === $categoryDisplay) {
+        include __DIR__ . '/default_bare.php';
     } else {
         include __DIR__ . '/default_list.php';
     }

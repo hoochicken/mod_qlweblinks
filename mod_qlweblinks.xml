@@ -23,7 +23,7 @@
 		<folder>language</folder>
 		<folder>tmpl</folder>
 		<folder>php</folder>
-		<filename>helper.php</filename>
+		<filename>ModQlweblinksHelper.php</filename>
 		<filename>index.html</filename>
 		<filename>license.txt</filename>
 		<filename>mod_qlweblinks.xml</filename>

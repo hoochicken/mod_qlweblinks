@@ -18,6 +18,8 @@ defined('_JEXEC') or die;
 class ModQlweblinksRender
 {
 
+    const LINK_WEBLINK_TITLE = true;
+    const TITLE = 'title';
     const ATTRIBUTES = [
         'catid',
         'cat_title',
@@ -28,27 +30,30 @@ class ModQlweblinksRender
         'image',
     ];
 
-    static public function renderList(string $template, array $data, bool $setSpans = false): string
+    static public function renderList(string $template, array $data, bool $setLink = true, bool $setSpans = false): string
     {
-        return self::renderBare($template, $data, $setSpans);
+        return self::renderBare($template, $data, $setLink, $setSpans);
     }
 
-    static public function renderTable(string $template, array $data, bool $setSpans = false): string
+    static public function renderTable(string $template, array $data, bool $setLink = true, bool $setSpans = false): string
     {
         $template = self::setPlaceholdersInTemplate($template, self::ATTRIBUTES);
         $template = str_replace(['(', ')'], '', $template);
-        $template = ModQlweblinksRender::generateTemplateTableRow($template);
+        $template = ModQlweblinksRender::generateTemplateTableCells($template);
 
         $data = self::getDataArrayWithPlaceholdersAsKey($data);
         $data = array_filter($data, function($item) {return is_string($item) || is_numeric($item); });
 
         return self::replacePlaceholders($template, $data);
-        // return sprintf('<table>%s</table>', self::replacePlaceholders($template, $data));
     }
 
-    static public function renderBare(string $template, array $data, bool $setSpans = false): string
+    static public function renderBare(string $template, array $data, bool $setLink = true, bool $setSpans = false): string
     {
         $template = self::setPlaceholdersInTemplate($template, self::ATTRIBUTES);
+        $paramsWeblink = json_decode($data['params'] ?? '{}');
+        if ($setLink && isset($data['url'])) {
+            $data['title'] = self::generateLink($data['title'], $data['url'], !empty($paramsWeblink->target) ? $paramsWeblink->target : '_blank');
+        }
         $data = self::getDataArrayWithPlaceholdersAsKey($data);
         $data = array_filter($data, function($item) {return is_string($item) || is_numeric($item); });
         if ($setSpans) {
@@ -98,14 +103,18 @@ class ModQlweblinksRender
         return sprintf('<span class="%s">%s</span>', $attribute, $content);
     }
 
-    static private function generateTemplateTableRow(?string $template): string
+    static private function generateLink(?string $content, string $url = '', ?string $target = '_blank'): string
+    {
+        return sprintf('<a href="%s" target="%s">%s</a>', $url, $target, $content);
+    }
+
+    static private function generateTemplateTableCells(?string $template): string
     {
         $columns = explode(' ', $template);
         array_walk($columns, function(&$item) {
-            $class = preg_replace('/[^(a-zA-Z0-9)]/', '', $item);
+            $class = strtolower(preg_replace('/[^(a-zA-Z0-9)]/', '', $item));
             $item = sprintf('<td class="%s">%s</td>', $class, $item);
         });
         return implode('', $columns);
-        // return sprintf('<tr>%s</tr>', implode('', $columns));
     }
 }

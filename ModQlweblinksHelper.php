@@ -129,12 +129,12 @@ class ModQlweblinksHelper
         return $items;
     }
 
-    public static function render(string $template, array $item, string $display, bool $setSpan = false): string
+    public static function render(string $template, array $item, string $display, bool $setLink = true, bool $setSpan = false): string
     {
         return match ($display) {
-            self::DISPLAY_TABLE => ModQlweblinksRender::renderTable($template, $item, $setSpan),
-            self::DISPLAY_BARE => ModQlweblinksRender::renderBare($template, $item, $setSpan),
-            default => ModQlweblinksRender::renderList($template, $item, $setSpan),
+            self::DISPLAY_TABLE => ModQlweblinksRender::renderTable($template, $item, $setLink = true, $setSpan),
+            self::DISPLAY_BARE => ModQlweblinksRender::renderBare($template, $item, $setLink = true, $setSpan),
+            default => ModQlweblinksRender::renderList($template, $item, $setLink = true, $setSpan),
         };
     }
 

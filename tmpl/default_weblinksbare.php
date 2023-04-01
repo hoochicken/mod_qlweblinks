@@ -10,7 +10,7 @@
 /** @var array $weblinks */
 ?>
 <span class="qlweblinks module_<?= $module->id ?>">
-<?php foreach ($weblinks as $k => $weblink): ?>
-    <span class="ql-weblink-bare"><?php echo $weblink['content_with_span']; ?></span><?php if ($k < array_key_last($weblink)) echo ', '; ?>
+<?php foreach ($weblinks as $kw => $weblink): ?>
+    <span class="ql-weblink-bare"><?php echo $weblink['content_with_span']; ?></span><?php if ($kw < array_key_last($weblinks)) echo ', '; ?>
 <?php endforeach; ?>
 </span>

@@ -41,8 +41,10 @@ class ModQlweblinksRender
         $template = str_replace(['(', ')'], '', $template);
         $template = ModQlweblinksRender::generateTemplateTableCells($template);
 
+        $data['title'] = is_string($data['title']) ? trim($data['title']) : $data['title'];
+        $data['cat_title'] = isset($data['cat_title']) ? trim($data['cat_title']) : '';
         $data = self::getDataArrayWithPlaceholdersAsKey($data);
-        $data = array_filter($data, function($item) {return is_string($item) || is_numeric($item); });
+        $data = array_filter($data, function($item) { return is_string($item) || is_numeric($item); });
 
         return self::replacePlaceholders($template, $data);
     }
@@ -51,9 +53,10 @@ class ModQlweblinksRender
     {
         $template = self::setPlaceholdersInTemplate($template, self::ATTRIBUTES);
         $paramsWeblink = json_decode($data['params'] ?? '{}');
-        if ($setLink && isset($data['url'])) {
-            $data['title'] = self::generateLink($data['title'], $data['url'], !empty($paramsWeblink->target) ? $paramsWeblink->target : '_blank');
-        }
+        $content = is_string($data['title']) ? trim($data['title']) : $data['title'];
+        $data['title'] = ($setLink && isset($data['url']))
+            ? $data['title'] = self::generateLink($content, $data['url'], !empty($paramsWeblink->target) ? $paramsWeblink->target : '_blank')
+            : $content;
         $data = self::getDataArrayWithPlaceholdersAsKey($data);
         $data = array_filter($data, function($item) {return is_string($item) || is_numeric($item); });
         if ($setSpans) {
@@ -83,7 +86,7 @@ class ModQlweblinksRender
         $dataNew = [];
         foreach($data as $attribute => $content) {
             $placeholder = self::generatePlaceholder($attribute);
-            $dataNew[$placeholder] = $content;
+            $dataNew[$placeholder] = is_string($content) ? trim($content) : $content;
         }
         return $dataNew;
     }

@@ -131,11 +131,11 @@ class ModQlweblinksHelper
 
     public static function render(string $template, array $item, string $display, bool $setLink = true, bool $setSpan = false): string
     {
-        return match ($display) {
+        return trim(match ($display) {
             self::DISPLAY_TABLE => ModQlweblinksRender::renderTable($template, $item, $setLink = true, $setSpan),
             self::DISPLAY_BARE => ModQlweblinksRender::renderBare($template, $item, $setLink = true, $setSpan),
             default => ModQlweblinksRender::renderList($template, $item, $setLink = true, $setSpan),
-        };
+        });
     }
 
     public function getQuery()

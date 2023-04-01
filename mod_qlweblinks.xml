@@ -10,10 +10,10 @@
 	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
 	<authorEmail>mareike.riegel@ql.de</authorEmail>
 	<authorUrl>ql.de</authorUrl>
-	<version>1.0.0</version>
+	<version>1.0.3</version>
 	<description>MOD_QLWEBLINKS_XML_DESCRIPTION</description>
 	<updateservers>
-        <server type="extension" priority="1" name="qlweblinks - Updates">https://raw.githubusercontent.com/hoochicken/mod_qlform/main/_jupdate/mod_qlweblinks.xml</server>
+        <server type="extension" priority="1" name="qlweblinks - Updates">https://github.com/hoochicken/mod_qlweblinks/blob/main/_jupdate/mod_qlweblinks.xml</server>
     </updateservers>
 	<files>
 		<filename module="mod_qlweblinks">mod_qlweblinks.php</filename>

@@ -90,10 +90,10 @@
 					<option value="bare">MOD_QLWEBLINKS_BARE</option>
 				</field>
 				<field name="weblink_ordering" type="list" label="MOD_QLWEBLINKS_ORDERING">
-					<option value="title">title</option>
-					<option value="created">created_at</option>
-					<option value="ordering">ordering</option>
-					<option value="id">id</option>
+					<option value="title">MOD_QLWEBLINKS_TITLE</option>
+					<option value="created_time">MOD_QLWEBLINKS_CREATED</option>
+					<option value="lft">MOD_QLWEBLINKS_ORDERING</option>
+					<option value="id">MOD_QLWEBLINKS_ID</option>
 				</field>
 				<field name="weblink_order_dir" type="list" label="MOD_QLWEBLINKS_ORDERDIRECTION">
 					<option value="asc">MOD_QLWEBLINKS_ASC</option>
@@ -130,15 +130,15 @@
 					<option value="title (id) image description">title (id) image description</option>/option>
 				</field>
 				<field name="category_display" type="list" label="MOD_QLWEBLINKS_DISPLAY">
-					<option value="list">list</option>
-					<option value="table">table</option>
-					<option value="grid">grid</option>
+					<option value="list">MOD_QLWEBLINKS_LIST</option>
+					<option value="table">MOD_QLWEBLINKS_TABLE</option>
+					<option value="bare">MOD_QLWEBLINKS_BARE</option>
 				</field>
 				<field name="category_ordering" type="list" label="MOD_QLWEBLINKS_ORDERING">
-					<option value="title">title</option>
-					<option value="created_time">created_at</option>
-					<option value="lft">ordering</option>
-					<option value="id">id</option>
+					<option value="title">MOD_QLWEBLINKS_TITLE</option>
+					<option value="created_time">MOD_QLWEBLINKS_CREATED</option>
+					<option value="lft">MOD_QLWEBLINKS_ORDERING</option>
+					<option value="id">MOD_QLWEBLINKS_ID</option>
 				</field>
 				<field name="category_order_dir" type="list" label="MOD_QLWEBLINKS_ORDERDIRECTION">
 					<option value="asc">MOD_QLWEBLINKS_ASC</option>

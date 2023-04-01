@@ -9,6 +9,8 @@ use Joomla\CMS\Factory;
 
 /** @var stdClass $module */
 /** @var array $weblinks */
+/** @var string $weblinkDisplay */
+/** @var string $typeInGeneral */
 /** @var \Joomla\Registry\Registry $params */
 
 // no direct access
@@ -22,7 +24,9 @@ $categoryDisplay = $params->get('category_display', 'list');
 ?>
 <div class="qlweblinks" id="module<?php echo $module->id ?>">
     <?php
-    if (in_array(\ModQlweblinks\ModQlweblinksHelper::DISPLAY_TABLE, [$weblinkDisplay, $categoryDisplay])) {
+    if ((\ModQlweblinks\ModQlweblinksHelper::TYPE_CATEGORY === $typeInGeneral && \ModQlweblinks\ModQlweblinksHelper::DISPLAY_TABLE === $categoryDisplay)
+            ||
+            (\ModQlweblinks\ModQlweblinksHelper::TYPE_WEBLINK === $typeInGeneral && \ModQlweblinks\ModQlweblinksHelper::DISPLAY_TABLE === $weblinkDisplay)) {
         include __DIR__ . '/default_table.php';
     } else {
         include __DIR__ . '/default_list.php';
